@@ -3,7 +3,6 @@
 require 'timeout'
 require_relative 'fan_in'
 
-# Керований вхідний потік: елементи подаються вручну, потік закривається явно.
 class Channel
   include Enumerable
 

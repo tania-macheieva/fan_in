@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module FanIn
-  # Елемент вихідного потоку: або значення, або помилка одного з входів.
   Result = Struct.new(:ok, :value, :error) do
     def self.ok(value)
       new(true, value, nil)
@@ -16,11 +15,6 @@ module FanIn
     end
   end
 
-  # Зливає кілька вхідних потоків (будь-які Enumerable) в один потік Result.
-  # Кожен вхід читається в окремому потоці, тому повільний вхід не блокує решту.
-  # Порядок зберігається в межах кожного входу, між входами він не гарантується.
-  # Помилка входу передається як Result.err і завершує лише цей вхід.
-  # Вихідний потік закривається, коли завершились усі входи.
   def self.fan_in(inputs)
     Enumerator.new do |out|
       queue = Queue.new
